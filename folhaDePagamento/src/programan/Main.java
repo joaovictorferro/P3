@@ -47,6 +47,7 @@ public class Main {
 			System.out.println("Digite [11] se deseja listar os empregados:");
 
 			i = sc.nextInt();
+			sc.nextLine();
 			
 			if (i > 0 && i < 8) {
 				
@@ -66,16 +67,16 @@ public class Main {
 					}
 				}
 
-				System.out.println("Digite o nome do empregado (Somente o primeiro nome):");
-				empregado[id][0] = sc.next();
-				System.out.println("Digite o endereço do empregado (escreva tudo junto):");
-				empregado[id][1] = sc.next();
+				System.out.println("Digite o nome do empregado:");
+				empregado[id][0] = sc.nextLine();
+				System.out.println("Digite o endereço do empregado:");
+				empregado[id][1] = sc.nextLine();
 				System.out.println("Digite se o empregado é Horista ou Assalariado:");
-				empregado[id][2] = sc.next();
+				empregado[id][2] = sc.nextLine();
 				
 				if (empregado[id][2].equals("Horista")) {
 					System.out.println("Digite o valor da hora trabalhada do empregado (ex: 200.00):");
-					empregado[id][3] = sc.next();
+					empregado[id][3] = sc.nextLine();
 					empregado[id][4] = "Nao";
 					empregado[id][5] = "0";
 					empregado[id][6] = "Semanal";
@@ -86,15 +87,15 @@ public class Main {
 					
 				} else if (empregado[id][2].equals("Assalariado")) {
 					System.out.println("Digite o salário do empregado (ex: 200.00):");
-					empregado[id][14] = sc.next();
+					empregado[id][14] = sc.nextLine();
 					System.out.println("O empregado é comissionado?(Sim/Nao)");
-					empregado[id][4] = sc.next();
+					empregado[id][4] = sc.nextLine();
 
 					if (empregado[id][4].equals("Sim")) {
 						System.out.println("Digite o valor da comissão em porcentagem:");
-						empregado[id][5] = sc.next();
+						empregado[id][5] = sc.nextLine();
 						empregado[id][8] = "Sexta";
-						empregado[id][6] = "Bisemanal";
+						empregado[id][6] = "Bissemanal";
 						empregado[id][7] = "2";
 						empregado[id][13] = "1.0";
 					} else {
@@ -108,14 +109,14 @@ public class Main {
 
 				System.out.println(
 						"Digite o método de pagamento:(cheque pelos correios digite:(chequeC)/cheque em mãos digite: (chequeM) /depósito em conta bancária) digite: (contaB)");
-				empregado[id][9] = sc.next();
+				empregado[id][9] = sc.nextLine();
 				System.out.println("O empregado pertence ao sindicato?(Sim/Nao)");
-				empregado[id][10] = sc.next();
+				empregado[id][10] = sc.nextLine();
 
 				if (empregado[id][10].equals("Sim")) {
 					empregado[id][11] = Integer.toString(id);
 					System.out.println("Digite o valor $ da taxa sindical (Ex: 200.00):");
-					empregado[id][12] = sc.next();
+					empregado[id][12] = sc.nextLine();
 				}
 				System.out.println("O ID do empregado é: " + id + "\n");
 
@@ -124,6 +125,7 @@ public class Main {
 
 				System.out.println("Digite o ID do empregado que deseja remover:");
 				int ID = sc.nextInt();
+				sc.nextLine();
 				idLivres[ID] = 0;
 
 				empregado[ID][0] = null;
@@ -236,7 +238,7 @@ public class Main {
 							empregado[id][5] = sc.next();
 							empregado[id][7] = "2";
 							empregado[id][8] = "Sexta";
-							empregado[id][6] = "Bisemanal";
+							empregado[id][6] = "Bissemanal";
 							empregado[id][13] = "0.0";
 						}
 					} else {
@@ -289,7 +291,7 @@ public class Main {
 
 				for (k = 0; k < 50; k++) {
 					
-					if (semanaQ % 2 == 0 && diadaSemana.equals(empregado[k][8]) && empregado[k][6].equals("Bisemanal")) {
+					if (semanaQ % 2 == 0 && diadaSemana.equals(empregado[k][8]) && empregado[k][6].equals("Bissemanal")) {
 						double salarioP = Double.parseDouble(empregado[k][14]);
 						double taxaDeVenda = Double.parseDouble(empregado[k][13]);
 						empregado[k][13] = "0.0";
@@ -397,11 +399,11 @@ public class Main {
 				
 			} else if (i == 9) {
 				int m;
-				System.out.println("Digite o ID do empregado:");
+				System.out.println("Digite o ID do empregado que deseja modificar a sua agenda:");
 				id = sc.nextInt();
 				sc.nextLine();
 				
-				System.out.println("Digite a Nova agenda de pagamento do empregado: [1]Semanal [2] Bisemanal [3]Mensal");
+				System.out.println("Digite a Nova agenda de pagamento do empregado: [1]Semanal [2] Bissemanal [3]Mensal");
 				m = sc.nextInt();
 				
 				double salario = Double.parseDouble(empregado[id][14]);
@@ -409,7 +411,7 @@ public class Main {
 				
 				if(m == 1) {
 					
-					if(empregado[id][4].equals("Sim")&& empregado[id][6].equals("Bisemanal")) {
+					if(empregado[id][4].equals("Sim")&& empregado[id][6].equals("Bissemanal")) {
 						newsalario = salario/2.0;
 						empregado[id][14] = Double.toString(newsalario);
 						empregado[id][6] = "Semanal";
@@ -424,7 +426,7 @@ public class Main {
 						empregado[id][14] = Double.toString(newsalario);
 						empregado[id][6] = "Semanal";
 						empregado[id][8] = "Sexta";
-					}else if(empregado[id][2].equals("Assalariado") && empregado[id][6].equals("Bisemanal")){
+					}else if(empregado[id][2].equals("Assalariado") && empregado[id][6].equals("Bissemanal")){
 						newsalario = salario/2.0;
 						empregado[id][14] = Double.toString(newsalario);
 						empregado[id][6] = "Semanal";
@@ -438,29 +440,29 @@ public class Main {
 					if(empregado[id][4].equals("Sim")&& empregado[id][6].equals("Semanal")) {
 						newsalario = salario * 2.0;
 						empregado[id][14] = Double.toString(newsalario);
-						empregado[id][6] = "Bisemanal";
+						empregado[id][6] = "Bissemanal";
 						empregado[id][8] = "Sexta";
 					}else if(empregado[id][4].equals("Sim")&& empregado[id][6].equals("Mensal")){
 						newsalario = salario/2.0;
 						empregado[id][14] = Double.toString(newsalario);
-						empregado[id][6] = "Bisemanal";
+						empregado[id][6] = "Bissemanal";
 						empregado[id][8] = "Sexta";
 					} else if(empregado[id][2].equals("Assalariado") && empregado[id][6].equals("Mensal")) {
 						newsalario = salario/2.0;
 						empregado[id][14] = Double.toString(newsalario);
-						empregado[id][6] = "Bisemanal";
+						empregado[id][6] = "Bissemanal";
 						empregado[id][8] = "Sexta";
 					}else if(empregado[id][2].equals("Assalariado") && empregado[id][6].equals("Semanal")){
 						newsalario = salario * 2.0;
 						empregado[id][14] = Double.toString(newsalario);
-						empregado[id][6] = "Bisemanal";
+						empregado[id][6] = "Bissemanal";
 						empregado[id][8] = "Sexta";
 					}else if(empregado[id][2].equals("Horista")) {
-						empregado[id][6] = "Bisemanal";
+						empregado[id][6] = "Bissemanal";
 						empregado[id][8] = "Sexta";
 					}
 				}else if(m==3) {
-					if(empregado[id][4].equals("Sim")&& empregado[id][6].equals("Bisemanal")) {
+					if(empregado[id][4].equals("Sim")&& empregado[id][6].equals("Bissemanal")) {
 						newsalario = salario * 2.0;
 						empregado[id][14] = Double.toString(newsalario);
 						empregado[id][6] = "Mensal";
@@ -475,7 +477,7 @@ public class Main {
 						empregado[id][14] = Double.toString(newsalario);
 						empregado[id][6] = "Mensal";
 						empregado[id][8] = "30";
-					}else if(empregado[id][2].equals("Assalariado") && empregado[id][6].equals("Bisemanal")){
+					}else if(empregado[id][2].equals("Assalariado") && empregado[id][6].equals("Bissemanal")){
 						newsalario = salario * 2.0;
 						empregado[id][14] = Double.toString(newsalario);
 						empregado[id][6] = "Mensal";
@@ -487,7 +489,111 @@ public class Main {
 				}
 
 			} else if (i == 10) {
+				
+				System.out.println("Digite o ID do funcionario que deseja modificar sua agenda de pagamento:");
+				id = sc.nextInt();
+				
+				System.out.println("Digite a Nova agenda de pagamento do empregado: [1]Semanal [2] Bissemanal [3]Mensal");
+				int m = sc.nextInt();
+				
+				double salario = Double.parseDouble(empregado[id][14]);
+				double newsalario = 0.0;
+				
+				if(m == 1) {
+					
+					if(empregado[id][4].equals("Sim")&& empregado[id][6].equals("Bissemanal")) {
+						newsalario = salario/2.0;
+						empregado[id][14] = Double.toString(newsalario);
+						empregado[id][6] = "Semanal";
+						System.out.println("Digite o dia da semana que deseja receber:");
+						empregado[id][8] = sc.next();
+					}else if(empregado[id][4].equals("Sim")&& empregado[id][6].equals("Mensal")){
+						newsalario = salario/4.0;
+						empregado[id][14] = Double.toString(newsalario);
+						empregado[id][6] = "Semanal";
+						System.out.println("Digite o dia da semana que deseja receber:");
+						empregado[id][8] = sc.next();
+					} else if(empregado[id][2].equals("Assalariado") && empregado[id][6].equals("Mensal")) {
+						newsalario = salario/4.0;
+						empregado[id][14] = Double.toString(newsalario);
+						empregado[id][6] = "Semanal";
+						System.out.println("Digite o dia da semana que deseja receber:");
+						empregado[id][8] = sc.next();
+					}else if(empregado[id][2].equals("Assalariado") && empregado[id][6].equals("Bissemanal")){
+						newsalario = salario/2.0;
+						empregado[id][14] = Double.toString(newsalario);
+						empregado[id][6] = "Semanal";
+						System.out.println("Digite o dia da semana que deseja receber:");
+						empregado[id][8] = sc.next();
+					}else if(empregado[id][2].equals("Horista")) {
+						empregado[id][6] = "Semanal";
+						System.out.println("Digite o dia da semana que deseja receber:");
+						empregado[id][8] = sc.next();
+					}
+				}else if(m == 2) {
+					
+					if(empregado[id][4].equals("Sim")&& empregado[id][6].equals("Semanal")) {
+						newsalario = salario * 2.0;
+						empregado[id][14] = Double.toString(newsalario);
+						empregado[id][6] = "Bissemanal";
+						System.out.println("Digite o dia da semana que deseja receber:");
+						empregado[id][8] = sc.next();
+					}else if(empregado[id][4].equals("Sim")&& empregado[id][6].equals("Mensal")){
+						newsalario = salario/2.0;
+						empregado[id][14] = Double.toString(newsalario);
+						empregado[id][6] = "Bissemanal";
+						System.out.println("Digite o dia da semana que deseja receber:");
+						empregado[id][8] = sc.next();
+					} else if(empregado[id][2].equals("Assalariado") && empregado[id][6].equals("Mensal")) {
+						newsalario = salario/2.0;
+						empregado[id][14] = Double.toString(newsalario);
+						empregado[id][6] = "Bissemanal";
+						System.out.println("Digite o dia da semana que deseja receber:");
+						empregado[id][8] = sc.next();
+					}else if(empregado[id][2].equals("Assalariado") && empregado[id][6].equals("Semanal")){
+						newsalario = salario * 2.0;
+						empregado[id][14] = Double.toString(newsalario);
+						empregado[id][6] = "Bissemanal";
+						System.out.println("Digite o dia da semana que deseja receber:");
+						empregado[id][8] = sc.next();
+					}else if(empregado[id][2].equals("Horista")) {
+						empregado[id][6] = "Bissemanal";
+						System.out.println("Digite o dia da semana que deseja receber:");
+						empregado[id][8] = sc.next();
+					}
+				}else if(m==3) {
+					if(empregado[id][4].equals("Sim")&& empregado[id][6].equals("Bissemanal")) {
+						newsalario = salario * 2.0;
+						empregado[id][14] = Double.toString(newsalario);
+						empregado[id][6] = "Mensal";
+						System.out.println("Digite o dia que deseja receber:");
+						empregado[id][8] = sc.next();
+					}else if(empregado[id][4].equals("Sim")&& empregado[id][6].equals("Semanal")){
+						newsalario = salario * 4.0;
+						empregado[id][14] = Double.toString(newsalario);
+						empregado[id][6] = "Mensal";
+						System.out.println("Digite o dia que deseja receber:");
+						empregado[id][8] = sc.next();
+					} else if(empregado[id][2].equals("Assalariado") && empregado[id][6].equals("Semanal")) {
+						newsalario = salario * 4.0;
+						empregado[id][14] = Double.toString(newsalario);
+						empregado[id][6] = "Mensal";
+						System.out.println("Digite o dia que deseja receber:");
+						empregado[id][8] = sc.next();
+					}else if(empregado[id][2].equals("Assalariado") && empregado[id][6].equals("Bissemanal")){
+						newsalario = salario * 2.0;
+						empregado[id][14] = Double.toString(newsalario);
+						empregado[id][6] = "Mensal";
+						System.out.println("Digite o dia que deseja receber:");
+						empregado[id][8] = sc.next();
+					}else if(empregado[id][2].equals("Horista")) {
+						empregado[id][6] = "Mensal";
+						System.out.println("Digite o dia que deseja receber:");
+						empregado[id][8] = sc.next();
+					}
+				}
 
+				
 			} else if (i == 11) {
 
 				int k = 0;
