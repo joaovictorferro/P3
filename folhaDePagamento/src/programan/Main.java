@@ -42,9 +42,9 @@ public class Main {
 			System.out.println("Digite [0] se deseja parar o programa:");
 			System.out.println("Digite [1] se deseja adicionar um empregado:");
 			System.out.println("Digite [2] se deseja remover um empregado:");
-			System.out.println("Digite [3] se deseja lanÁar um cart„o de ponto:");
-			System.out.println("Digite [4] se deseja lanÁar um resultado de venda:");
-			System.out.println("Digite [5] se deseja lanÁar uma taxa de serviÁo:");
+			System.out.println("Digite [3] se deseja lan√ßar um cart√£o de ponto:");
+			System.out.println("Digite [4] se deseja lan√ßar um resultado de venda:");
+			System.out.println("Digite [5] se deseja lan√ßar uma taxa de servi√ßo:");
 			System.out.println("Digite [6] se deseja alterar dados de um empregado:");
 			System.out.println("Digite [7] se deseja rodar a folha de pagamento:");
 			System.out.println("Digite [8] para Undo/Redo:");
@@ -75,9 +75,9 @@ public class Main {
 				}
 				System.out.println("Digite o nome do empregado:");
 				empregado[id][0] = sc.nextLine();
-				System.out.println("Digite o endereÁo do empregado:");
+				System.out.println("Digite o endere√ßo do empregado:");
 				empregado[id][1] = sc.nextLine();
-				System.out.println("Digite se o empregado È Horista ou Assalariado:");
+				System.out.println("Digite se o empregado √© Horista ou Assalariado:");
 				empregado[id][2] = sc.nextLine();
 				
 				if (empregado[id][2].equals("Horista")) {
@@ -91,13 +91,13 @@ public class Main {
 					empregado[id][13] = "0.0";
 					
 				} else if (empregado[id][2].equals("Assalariado")) {
-					System.out.println("Digite o sal·rio do empregado (ex: 200.00):");
+					System.out.println("Digite o sal√°rio do empregado (ex: 200.00):");
 					empregado[id][14] = sc.nextLine();
-					System.out.println("O empregado È comissionado?(Sim/Nao)");
+					System.out.println("O empregado √© comissionado?(Sim/Nao)");
 					empregado[id][4] = sc.nextLine();
 
 					if (empregado[id][4].equals("Sim")) {
-						System.out.println("Digite o valor da comiss„o em porcentagem:");
+						System.out.println("Digite o valor da comiss√£o em porcentagem:");
 						empregado[id][5] = sc.nextLine();
 						empregado[id][8] = "Sexta";
 						empregado[id][6] = "Bissemanal";
@@ -110,7 +110,7 @@ public class Main {
 					}
 				}
 
-				System.out.println("Digite o mÈtodo de pagamento:(Cheque pelos correios/Cheque em m„os/DepÛsito em conta banc·ria");
+				System.out.println("Digite o m√©todo de pagamento:(Cheque pelos correios/Cheque em m√£os/Dep√≥sito em conta banc√°ria");
 				empregado[id][9] = sc.nextLine();
 				System.out.println("O empregado pertence ao sindicato?(Sim/Nao)");
 				empregado[id][10] = sc.nextLine();
@@ -124,7 +124,7 @@ public class Main {
 				}else {
 					empregado[id][12] = "0.0"; 
 				}
-				System.out.println("O ID do empregado È: " + id + "\n");
+				System.out.println("O ID do empregado √©: " + id + "\n");
 
 				idLivres[id] = 1;
 			} else if (i == 2) {
@@ -149,10 +149,11 @@ public class Main {
 				empregado[ID][12] = null;
 				empregado[ID][13] = null;
 				empregado[ID][14] = null;
+				empregado[ID][15] = null;
 				System.out.println("Removido com sucesso!!\n");
 			} else if (i == 3) {
 
-				System.out.println("Digite o ID do empregado que deseja lanÁar o cart„o de ponto:");
+				System.out.println("Digite o ID do empregado que deseja lan√ßar o cart√£o de ponto:");
 				int Id = sc.nextInt();
 				
 				if (empregado[Id][2].equals("Horista")) {
@@ -160,9 +161,9 @@ public class Main {
 					double HoradeEntrada = sc.nextDouble();
 					System.out.println("Digite o minuto de entrada:");
 					double MinutodeEntrada = sc.nextDouble();
-					System.out.println("Digite a hora de saÌda:(Formato 24h)");
+					System.out.println("Digite a hora de sa√≠da:(Formato 24h)");
 					double HoradeSaida = sc.nextDouble();
-					System.out.println("Digite o minuto de saÌda:");
+					System.out.println("Digite o minuto de sa√≠da:");
 					double MinutodeSaida = sc.nextDouble();
 
 					double TempoemMinutos = (HoradeSaida * 60.0 + MinutodeSaida) - (HoradeEntrada * 60.0 + MinutodeEntrada);
@@ -181,12 +182,12 @@ public class Main {
 
 					empregado[Id][14] = Double.toString(resultSalario);
 				} else {
-					System.out.println("O empregado n„o È Horista.");
+					System.out.println("O empregado n√£o √© Horista.");
 				}
 
 			} else if (i == 4) {
 
-				System.out.println("Digite o id do empregado que deseja lanÁar o resultado de venda:");
+				System.out.println("Digite o id do empregado que deseja lan√ßar o resultado de venda:");
 				id = sc.nextInt();
 				if (empregado[id][4].equals("Sim")) {
 					System.out.println("Digite o valor da venda: (Ex: 200.00)");
@@ -195,15 +196,15 @@ public class Main {
 					res = res * res2 / 100;
 					empregado[id][13] = Double.toString(res);
 				} else {
-					System.out.println("O empregado n„o È comissionado.");
+					System.out.println("O empregado n√£o √© comissionado.");
 				}
 
 			} else if (i == 5) {
 
-				System.out.println("Digite o ID do empregado que deseja lanÁar uma taxa de serviÁo:");
+				System.out.println("Digite o ID do empregado que deseja lan√ßar uma taxa de servi√ßo:");
 				id = sc.nextInt();
 				if (empregado[id][10].equals("Sim")) {
-					System.out.println("Digite o valor da taxa de serviÁo: (Ex: 200.00)");
+					System.out.println("Digite o valor da taxa de servi√ßo: (Ex: 200.00)");
 					double res = Double.parseDouble(empregado[id][7]);
 					res += sc.nextDouble();
 					empregado[id][7] = Double.toString(res);
@@ -219,10 +220,10 @@ public class Main {
 					System.out.println("Digite o novo nome: (Somente o primeiro nome)");
 					empregado[id][0] = sc.nextLine();
 				}
-				System.out.println("Deseja alterar o endereÁo do empregado:(Sim/Nao)");
+				System.out.println("Deseja alterar o endere√ßo do empregado:(Sim/Nao)");
 				resposta = sc.nextLine();
 				if (resposta.equals("Sim")) {
-					System.out.println("Digite o novo endereÁo: (Tudo junto)");
+					System.out.println("Digite o novo endere√ßo: (Tudo junto)");
 					empregado[id][1] = sc.next();
 				}
 				System.out.println("Deseja mudar o tipo (Horista/Assalariado) do empregado?(Sim/Nao)");
@@ -230,12 +231,12 @@ public class Main {
 				if (resposta.equals("Sim")) {
 					if (empregado[id][2].equals("Horista")) {
 					
-						System.out.println("Digite o novo sal·rio: (Ex: 200.00)");
+						System.out.println("Digite o novo sal√°rio: (Ex: 200.00)");
 						empregado[id][14] = sc.next();
-						System.out.println("O empregado ser· comissionado?(Sim/Nao)");
+						System.out.println("O empregado ser√° comissionado?(Sim/Nao)");
 						empregado[id][4] = sc.next();
 						if (empregado[id][4].equals("Sim")) {
-							System.out.println("Digite a comiss„o do empregado em porcentagem: (Ex: 20):");
+							System.out.println("Digite a comiss√£o do empregado em porcentagem: (Ex: 20):");
 							empregado[id][5] = sc.next();
 							empregado[id][7] = "2";
 							empregado[id][8] = "Sexta";
@@ -261,10 +262,10 @@ public class Main {
 						empregado[id][14] = "0.0";
 					}
 				}
-				System.out.println("Deseja mudar o mÈtodo de pagamento do empregado?(Sim/Nao)");
+				System.out.println("Deseja mudar o m√©todo de pagamento do empregado?(Sim/Nao)");
 				resposta = sc.nextLine();
 				if (resposta.equals("Sim")) {
-					System.out.println("Digite o mÈtodo de pagamento:(Cheque pelos correios/Cheque em m„os/DepÛsito em conta banc·ria");
+					System.out.println("Digite o m√©todo de pagamento:(Cheque pelos correios/Cheque em m√£os/Dep√≥sito em conta banc√°ria");
 					empregado[id][9] = sc.nextLine();
 				}
 				
@@ -275,6 +276,7 @@ public class Main {
 						empregado[id][10] = "Nao";
 						empregado[id][11] = null;
 						empregado[id][12] = "0.0";
+						empregado[id][15] = null;
 					}
 				} else if (empregado[id][10].equals("Nao")) {
 					System.out.println("Deseja que o empregado entre no sindicato?(Sim/Nao)");
@@ -292,8 +294,8 @@ public class Main {
 			} else if (i == 7) {
 				
 				int k = 0;
-				String[] semana = { "Domingo", "Segunda", "TerÁa", "Quarta", "Quinta", "Sexta", "Sabado" };
-				String[] meses = { "Janeiro", "Fevereiro", "MarÁo", "Abril", "Maio", "Junho", "Julho", "Agosto",
+				String[] semana = { "Domingo", "Segunda", "Ter√ßa", "Quarta", "Quinta", "Sexta", "Sabado" };
+				String[] meses = { "Janeiro", "Fevereiro", "Mar√ßo", "Abril", "Maio", "Junho", "Julho", "Agosto",
 						"Setembro", "Outubro", "Novembro", "Dezembro" };
 				String diadaSemana = semana[(diaMes + 2 * mes) % 7];
 				System.out.println("Data: " + diaMes + "/" + meses[mes] + "   Dia da Semana: " + diadaSemana);
@@ -318,7 +320,7 @@ public class Main {
 							empregado[k][14] = "0.0";
 						}
 						
-						System.out.println("Sal·rio do empregado " + empregado[k][0] + ": R$" + salarioP +"Paga via:"+ empregado[id][9]+"\n");
+						System.out.println("Sal√°rio do empregado " + empregado[k][0] + ": R$" + salarioP +"Paga via:"+ empregado[id][9]+"\n");
 					}
 					
 					if ("Mensal".equals(empregado[k][6])) {
@@ -343,9 +345,9 @@ public class Main {
 							if(empregado[k][2].equals("Horista")) {
 								empregado[k][14] = "0.0";
 							}
-							System.out.println("Sal·rio do empregado " + empregado[k][0] + ": R$" + salarioP +"Paga via:"+ empregado[id][9]+"\n");
+							System.out.println("Sal√°rio do empregado " + empregado[k][0] + ": R$" + salarioP +"Paga via:"+ empregado[id][9]+"\n");
 						}else if (diaMes == diaReceber) {
-							if(diadaSemana.equals("Segunda") || diadaSemana.equals("TerÁa") || diadaSemana.equals("Quarta") || diadaSemana.equals("Quinta") || diadaSemana.equals("Sexta")) {
+							if(diadaSemana.equals("Segunda") || diadaSemana.equals("Ter√ßa") || diadaSemana.equals("Quarta") || diadaSemana.equals("Quinta") || diadaSemana.equals("Sexta")) {
 								double salarioP = Double.parseDouble(empregado[k][14]);
 								double despesas = 0.0;
 								double taxaDeVenda = Double.parseDouble(empregado[k][13]);
@@ -361,7 +363,7 @@ public class Main {
 								if(empregado[k][2].equals("Horista")) {
 									empregado[k][14] = "0.0";
 								}
-								System.out.println("Sal·rio do empregado " + empregado[k][0] + ": R$" + salarioP +"Paga via:"+ empregado[id][9]+"\n");
+								System.out.println("Sal√°rio do empregado " + empregado[k][0] + ": R$" + salarioP +"Paga via:"+ empregado[id][9]+"\n");
 							}
 						}
 					}
@@ -384,7 +386,7 @@ public class Main {
 							empregado[k][7] = "0.0";
 							salarioP -= despesas;
 							salarioP += taxaDeVenda;
-							System.out.println("Sal·rio do empregado " + empregado[k][0] + ": R$" + salarioP +"Paga via:"+ empregado[id][9]+"\n");
+							System.out.println("Sal√°rio do empregado " + empregado[k][0] + ": R$" + salarioP +"Paga via:"+ empregado[id][9]+"\n");
 						}
 					}
 					
