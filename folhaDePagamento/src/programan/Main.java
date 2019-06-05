@@ -9,20 +9,20 @@ public class Main {
 
 		Locale.setDefault(Locale.US);
 		int i;
-		int diaMes = 1;
+		int diaMes = 0;
 		int mes = 0;
 		int id = 0;
 		int semanaQ = 1;
 		Scanner sc = new Scanner(System.in);
 
-		String[][] empregado = new String[100][15];
-		String[][][] undo = new String [100][50][15];
-		String[][][] redo = new String [100][50][15];
+		String[][] empregado = new String[100][16];
+		String[][][] undo = new String [100][50][16];
+		String[][][] redo = new String [100][50][16];
 		String[] comandos = new String [1000];
-		int[] idLivres = new int[100];
+		int[] idLivres = new int[50];
 		int j,q,contUndo = 0,contRedo = 0, contComandos = 0;
 
-		for (j = 0; j < 100; j++) {
+		for (j = 0; j < 50; j++) {
 			idLivres[j] = 0;
 		}
 
@@ -31,6 +31,12 @@ public class Main {
 			if (diaMes > 30) {
 				mes += 1;
 				diaMes = 1;
+				for(j=0;j<50;j++) {
+					if(idLivres[j] == 1 && empregado[j][10].equals("Sim")) {
+						empregado[id][15] = "1";
+					}
+				}
+				
 			}
 			
 			System.out.println("Digite [0] se deseja parar o programa:");
@@ -53,7 +59,7 @@ public class Main {
 				comandos[contComandos] = Integer.toString(i);
 				contComandos += 1;
 				for(q = 0;q < 50;q++) {
-					for(j = 0;j < 15;j++) {
+					for(j = 0;j < 16;j++) {
 						undo[contUndo][q][j] = empregado[q][j];
 					}
 				}
@@ -110,8 +116,9 @@ public class Main {
 				empregado[id][10] = sc.nextLine();
 
 				if (empregado[id][10].equals("Sim")) {
+					empregado[id][15] = "1";
 					empregado[id][7] = "0.0";
-					empregado[id][11] = Integer.toString(id);
+					empregado[id][11] = Integer.toString(id+1);
 					System.out.println("Digite o valor $ da taxa sindical (Ex: 200.00):");
 					empregado[id][12] = sc.nextLine();
 				}else {
@@ -184,12 +191,9 @@ public class Main {
 				if (empregado[id][4].equals("Sim")) {
 					System.out.println("Digite o valor da venda: (Ex: 200.00)");
 					double res = sc.nextDouble();
-					double res2 = Double.parseDouble(empregado[id][13]);
+					double res2 = Double.parseDouble(empregado[id][5]);
 					res = res * res2 / 100;
-					double resSalario = Double.parseDouble(empregado[id][14]);
-
-					resSalario += res;
-					empregado[id][14] = Double.toString(resSalario);
+					empregado[id][13] = Double.toString(res);
 				} else {
 					System.out.println("O empregado não é comissionado.");
 				}
@@ -277,7 +281,8 @@ public class Main {
 					resposta = sc.nextLine();
 					if (resposta.equals("Sim")) {
 						empregado[id][10] = "Sim";
-						String ID = Integer.toString(id);
+						empregado[id][15] = "1";
+						String ID = Integer.toString(id+1);
 						empregado[id][11] = ID;
 						System.out.println("Digite o valor da taxa sindical $: (Ex: 200.00)");
 						empregado[id][12] = sc.next();
@@ -297,19 +302,22 @@ public class Main {
 					
 					if (semanaQ % 2 == 0 && diadaSemana.equals(empregado[k][8]) && empregado[k][6].equals("Bissemanal")) {
 						double salarioP = Double.parseDouble(empregado[k][14]);
-						double taxaDeVenda = Double.parseDouble(empregado[k][13]);
+						double taxaVenda = Double.parseDouble(empregado[k][13]);
 						empregado[k][13] = "0.0";
 						double despesas = 0;
-						if (empregado[k][10].equals("Sim")) {
+						if (empregado[k][10].equals("Sim") && empregado[k][15].equals("1")) {
 							despesas += Double.parseDouble(empregado[k][12]);
-							despesas += Double.parseDouble(empregado[k][7]);
+							empregado[k][15] = "0";
 						}
+						despesas += Double.parseDouble(empregado[k][7]);
+						empregado[k][7] = "0.0";
 						salarioP -= despesas;
+						salarioP += taxaVenda;
 						
 						if(empregado[k][2].equals("Horista")) {
 							empregado[k][14] = "0.0";
 						}
-						salarioP += taxaDeVenda;
+						
 						System.out.println("Salário do empregado " + empregado[k][0] + ": R$" + salarioP +"Paga via:"+ empregado[id][9]+"\n");
 					}
 					
@@ -323,10 +331,13 @@ public class Main {
 							double salarioP = Double.parseDouble(empregado[k][14]);
 							double despesas = 0.0;
 							double taxaDeVenda = Double.parseDouble(empregado[k][13]);
-							if (empregado[k][10].equals("Sim")) {
+							empregado[k][13] = "0.0";
+							if (empregado[k][10].equals("Sim") && empregado[k][15].equals("1")) {
 								despesas += Double.parseDouble(empregado[k][12]);
-								despesas += Double.parseDouble(empregado[k][7]);
+								empregado[k][15] = "0";
 							}
+							despesas += Double.parseDouble(empregado[k][7]);
+							empregado[k][7] = "0.0";
 							salarioP -= despesas;
 							salarioP += taxaDeVenda;
 							if(empregado[k][2].equals("Horista")) {
@@ -338,10 +349,13 @@ public class Main {
 								double salarioP = Double.parseDouble(empregado[k][14]);
 								double despesas = 0.0;
 								double taxaDeVenda = Double.parseDouble(empregado[k][13]);
-								if (empregado[k][10].equals("Sim")) {
+								empregado[k][13] = "0.0";
+								if (empregado[k][10].equals("Sim") && empregado[k][15].equals("1")) {
 									despesas += Double.parseDouble(empregado[k][12]);
-									despesas += Double.parseDouble(empregado[k][7]);
+									empregado[k][15] = "0";
 								}
+								despesas += Double.parseDouble(empregado[k][7]);
+								empregado[k][7] = "0.0";
 								salarioP -= despesas;
 								salarioP += taxaDeVenda;
 								if(empregado[k][2].equals("Horista")) {
@@ -356,15 +370,18 @@ public class Main {
 						if (diadaSemana.equals(empregado[k][8])) {
 							double salarioP = Double.parseDouble(empregado[k][14]);
 							double taxaDeVenda = Double.parseDouble(empregado[k][13]);
+							empregado[k][13] = "0.0";
 							if(empregado[k][2].equals("Horista")) {
 								empregado[k][14] = "0.0";
 							}
 							
 							double despesas = 0.0;
-							if (empregado[k][10].equals("Sim")) {
+							if (empregado[k][10].equals("Sim") && empregado[k][15].equals("1")) {
 								despesas += Double.parseDouble(empregado[k][12]);
-								despesas += Double.parseDouble(empregado[k][7]);
+								empregado[k][15] = "0";
 							}
+							despesas += Double.parseDouble(empregado[k][7]);
+							empregado[k][7] = "0.0";
 							salarioP -= despesas;
 							salarioP += taxaDeVenda;
 							System.out.println("Salário do empregado " + empregado[k][0] + ": R$" + salarioP +"Paga via:"+ empregado[id][9]+"\n");
@@ -460,7 +477,7 @@ public class Main {
 						empregado[id][14] = Double.toString(newsalario);
 						empregado[id][6] = "Semanal";
 						empregado[id][8] = "Sexta";
-					}else if(empregado[id][2].equals("Horista")) {
+					}else if(empregado[id][2].equals("Horista")){
 						empregado[id][6] = "Semanal";
 						empregado[id][8] = "Sexta";
 					}
@@ -633,7 +650,6 @@ public class Main {
 								+ " Metodo de Pagamento: " + empregado[k][9] + " Sindicato: "
 								+ empregado[k][10] + " Identificacao no Sindicato: " + empregado[k][11]
 								+ " Taxa de Sindicato: " + empregado[k][12] + "Salario: " + empregado[k][14]+"\n");
-
 					}
 				}
 			}
