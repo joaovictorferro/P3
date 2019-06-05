@@ -417,7 +417,7 @@ public class Main {
 						}
 					}
 					for(q = 0;q < 50;q++) {
-						for(j = 0;j < 15;j++) {
+						for(j = 0;j < 16;j++) {
 							empregado[q][j] = undo[contUndo-1][q][j];
 							redo[contRedo][q][j] = undo[contUndo][q][j];
 						}
@@ -435,7 +435,7 @@ public class Main {
 						}
 					}
 					for(q = 0;q < 50;q++) {
-						for(j = 0;j < 15;j++) {
+						for(j = 0;j < 16;j++) {
 							empregado[q][j] = redo[contRedo][q][j];
 							undo[contUndo][q][j] = redo[contRedo][q][j];
 						}
