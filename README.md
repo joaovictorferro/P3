@@ -31,8 +31,10 @@ Exemplo:<br>
 #### Funcionalidade 3
 
 Exemplo dos horários de entrada e saída:<br>
-7 30<br>
-18 45
+8 <br>
+30<br>
+16<br>
+30
 
 #### Funcionalidade 4
 
@@ -61,7 +63,9 @@ Essa deve ser a última funcionalidade realizada em cada dia, pois irá incremen
 
 Undo/redo podem ser realizados sobre todas as funcionalidades, com exceção da 8 (ela mesma) e a 9,10.<br>
 Redo só poderá ser utilizado se a funcionalidade utilizada anteriormente foi a 8.
+
 ### Funcionalidade 9
+
 Modificar a agenda do pagamento do empregado para uma nova, basta digitar o Id e escolher para qual tipo queira muda [1] Semanal [2] Bissemanal [3] Mensal, de acordo com o default.<br>
 Obs: Considerei que ele não ira mudar para o tipo que ele ja está.<br>
 Exemplo:<br>
@@ -69,11 +73,11 @@ Exemplo:<br>
 1
 
 #### Funcionalidade 10
-
+Modificar a agenda do pagamento do empregado para uma nova, basta digitar o Id e escolher para qual tipo queira muda [1] Semanal [2] Bissemanal [3] Mensal, e escolher o dia da semana ou o dia do mês.<br>
 Obs1: Considerei que ele não ira mudar para o tipo que ele ja está.<br>
 obs2:Caso for Mensal tem que digitar o dia do mês, Ex: 7;<br>
-obs3: Caso for Bissemanal ou Semanal, tera que digitar o dia da semana com a primeira letra Maiuscula, Ex: Segunda<br>
-Agendas de pagamento devem sempre seguir as formas:<br>
+obs3: Caso for Bissemanal ou Semanal, tera que digitar o dia da semana com a primeira letra Maiúscula, Ex: Segunda<br>
+Exemplo:<br>
 <li>49<br>
 <li>1<br>
 <li>Segunda<br>
