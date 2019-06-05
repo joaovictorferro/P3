@@ -9,9 +9,9 @@ Fornecer as informações sempre sem acentos ou caracteres especiais. Valores mo
 ### Como funciona:
 #### Funcionalidade 1
 
-Os três métodos de pagamento são: cheque correios; cheque maos; deposito conta.<br>
-As informações sindicais devem ser da forma 
-Sim ou Nao - se participa do sindicato ou não; taxa mensal em porcentagem.<br>
+Os três métodos de pagamento são: cheque correios; cheque mãos; depósito conta.<br>
+As informações síndicais devem ser da forma 
+Sim ou Não - se participa do sindicato ou não; taxa mensal em porcentagem.<br>
 
 Exemplo de uso da funcionalidade 1:<br>
 Jeremias<br>
@@ -51,8 +51,8 @@ Exemplo:<br>
 
 #### Funcionalidade 6
 
-Deve-se responder com "Sim" aqueles detalhes que deseja-se mudar, e "Nao" aqueles que não.<br>
-Ao alterar o contrato de um funcionário, deve-se necessariamente fornecer o novo atributo associado (salário, salário e % de comissão, salário/hora).<br>
+Deve-se responder com "Sim" aqueles detalhes que deseja-se mudar, e "Não" aqueles que não.<br>
+Ao alterar o contrato de um funcionário, deve-se necessariamente fornecer o novo atributo associado (salário e % de comissão, salário/hora).<br>
 Ao mudar o contrato de um funcionário, o sistema associará a agenda de pagamento default daquele contrato.
 
 #### Funcionalidade 7
@@ -67,19 +67,19 @@ Redo só poderá ser utilizado se a funcionalidade utilizada anteriormente foi a
 ### Funcionalidade 9
 
 Modificar a agenda do pagamento do empregado para uma nova, basta digitar o Id e escolher para qual tipo queira muda [1] Semanal [2] Bissemanal [3] Mensal, de acordo com o default.<br>
-Obs: Considerei que ele não ira mudar para o tipo que ele ja está.<br>
+Obs: Considerei que ele não irá mudar para o tipo que ele já está.<br>
 Exemplo:<br>
 49<br>
 1
 
 #### Funcionalidade 10
 Modificar a agenda do pagamento do empregado para uma nova, basta digitar o Id e escolher para qual tipo queira muda [1] Semanal [2] Bissemanal [3] Mensal, e escolher o dia da semana ou o dia do mês.<br>
-Obs1: Considerei que ele não ira mudar para o tipo que ele ja está.<br>
+Obs1: Considerei que ele não irá mudar para o tipo que ele já está.<br>
 obs2:Caso for Mensal tem que digitar o dia do mês, Ex: 7;<br>
-obs3: Caso for Bissemanal ou Semanal, tera que digitar o dia da semana com a primeira letra Maiúscula, Ex: Segunda<br>
+obs3: Caso for Bissemanal ou Semanal, terá que digitar o dia da semana com a primeira letra Maiúscula, Ex: Segunda<br>
 Exemplo:<br>
 <li>49<br>
 <li>1<br>
 <li>Segunda<br>
  
- #### Obs: Considerei que o usuário é inteligente, ou seja, não irá errar os comandos
+ #### Obs: Considerei que o usuário é inteligente, ou seja, não irá errar os comandos.
