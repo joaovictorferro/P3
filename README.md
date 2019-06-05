@@ -4,9 +4,9 @@ Projeto compilado com openjdk 11.0.3 e IDE utilizada Eclipse.
 
 ## Instruções de execução:
 
-Fornecer as informações sempre sem acentos ou caracteres especiais. Valores monetários devem ser fornecidos com um ponto para representar casas decimais (e.g. 1500.30).<br>
+Fornecer as informações sempre sem acentos ou caracteres especiais. Valores monetários devem ser fornecidos com um ponto para representar casas decimais (200.30).<br>
 
-### Adendos sobre as funcionalidades:
+### Como funciona:
 #### Funcionalidade 1
 
 Os três métodos de pagamento são: cheque correios; cheque maos; deposito conta.<br>
