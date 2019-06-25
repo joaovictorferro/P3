@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Hourly extends Employee {
 	
-	public TimeCard timecard = new TimeCard();
+	TimeCard timecard = new TimeCard();
 	private double valueOfTimeWorked;
 	this.pay = 0;
 	Scanner sc = new Scanner(System.in);
@@ -61,23 +61,28 @@ public class Hourly extends Employee {
 	        setPayment();
 	        System.out.println("");
 	    }
-
-	public double getValueOfTimeWorked() {
-		return valueOfTimeWorked;
-	}
-	
-	public void setValueOfTimeWorked(double valueOfTimeWorked) {
-		this.valueOfTimeWorked = valueOfTimeWorked;
-	}
-	
+	  public Hourly(Employee id){
+	        setName(id.getName());
+	        setAddress(id.getAddress());
+	        setSalary(id.getSalary());
+	        this.pay = 0;
+	        setValueOfTimeWorked(id.getSalary()/220.0);
+	        setId(id.getId());
+	        setPayment(id.getPayment());
+	        if(id.isSyndicate()){
+	            setIdSyndicate(id.getIdSyndicate());
+	            setUnionFee (id.getUnionFee());
+	            setServiceTax (id.getServiceTax());
+	        }
+	    }
 	 public void calculateDailyWage(){
 		 double period = this.timecard.dailyWorkingPeriod();
 
 	     if(period > 8){
 	    	 double extra = period - 8;
-	         this.setPay(this.getPay() + ((8*valueOfTimeWorked) + (extra*1.5*valueOfTimeWorked)));
+	         this.setPay(this.getPay() + ((8*getValueOfTimeWorked()) + (extra*1.5*getValueOfTimeWorked())));
 	     }else{
-	         this.setPay(this.getPay() + period*valueOfTimeWorked);
+	         this.setPay(this.getPay() + period*getValueOfTimeWorked());
 	     }
 	 }
 	
@@ -85,5 +90,12 @@ public class Hourly extends Employee {
 		this.timecard.arrivalTime();
 	    this.timecard.exitTime();
 	    calculateDailyWage();
+	}
+	public double getValueOfTimeWorked() {
+		return valueOfTimeWorked;
+	}
+	
+	public void setValueOfTimeWorked(double valueOfTimeWorked) {
+		this.valueOfTimeWorked = valueOfTimeWorked;
 	}
 }

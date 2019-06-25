@@ -37,13 +37,15 @@ public class Main {
 			} else if (i == 3) {
 				 System.out.println("Inputing timecard info.");
                  func.timeCard();
-				
 			} else if (i == 4) {
-
-				
+				System.out.println("Adicionar resultados de venda:");
+				func.saleResult();
 			} else if (i == 5) {
+				System.out.println("Adicionar taxa de servico:");
+                 func.serviceTax();
 			} else if (i == 6) {
-
+				System.out.println("Editar um funcionario");
+				func.editEmployee();
 			} else if (i == 7) {
 				
 			} else if (i == 8) {

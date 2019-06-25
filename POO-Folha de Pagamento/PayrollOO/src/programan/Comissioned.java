@@ -6,10 +6,11 @@ public class Comissioned extends Employee {
     private double commission;
     public double saleResults;
     Scanner sc = new Scanner(System.in);
-	public Comissioned() {
-		   this.saleResults = 0;
-
-	        System.out.println("Digite o nome do empregado:");
+	
+    public Comissioned() {
+    	
+    	this.saleResults = 0;   
+		System.out.println("Digite o nome do empregado:");
 	        String name = sc.nextLine();
 	        while(name.equals("")){
 	            System.out.println("Digite um nome valido");
@@ -34,7 +35,6 @@ public class Comissioned extends Employee {
 	        }
 	        setSalary(salary);
 	        System.out.println("");
-
 	        System.out.println("O empregado pertence o sindicato:");
 	        setSyndicate();
 	        System.out.println("");
@@ -79,4 +79,14 @@ public class Comissioned extends Employee {
 	public void setCommission(double commission) {
 		this.commission = commission;
 	}
+	
+    public void saleResult(){
+        System.out.println("Digite o resultado de venda:");
+        double result = sc.nextDouble();
+        while(result < 0){
+            System.out.println("Digite um numero valido.");
+            result = sc.nextDouble();
+        }
+        this.saleResults += result;
+    }
 }

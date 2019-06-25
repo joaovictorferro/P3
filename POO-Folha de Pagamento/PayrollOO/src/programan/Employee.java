@@ -12,8 +12,9 @@ public class Employee{
 	private int payment;
 	private int id;
 	private int idSyndicate;
+	private double serviceTax;
 	private double salary;
-	private double pay;
+	protected double pay;
 	Scanner sc = new Scanner(System.in);
 	
 	public double getSalary() {
@@ -98,9 +99,11 @@ public class Employee{
 	}
 
 	public int getPayment() {
-		return payment;
+		return (int)payment;
 	}
-
+	public void setPayment(int payment) {
+		this.payment = payment;
+	}
 	public void setPayment() {
 		System.out.println("Selecione uma das opcoes abaixo:");
         System.out.println("1->Cheque pelos correios 2->Cheque em Maos 3->Deposito em conta bancaria");
@@ -120,5 +123,13 @@ public class Employee{
 
 	public void setPay(double pay) {
 		this.pay = pay;
+	}
+
+	public double getServiceTax() {
+		return serviceTax;
+	}
+
+	public void setServiceTax(double serviceTax) {
+		this.serviceTax = serviceTax;
 	}
 }

@@ -61,4 +61,8 @@ public class WageEarner extends Employee {
         setPayment();
         System.out.println("");
 	}
+	
+	public Salaried(Employee Id){
+        
+    }
 }
