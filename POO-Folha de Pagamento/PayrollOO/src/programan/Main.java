@@ -8,8 +8,9 @@ public class Main {
 	public static void main(String[] args) {
 		Locale.setDefault(Locale.US);
 		Scanner sc = new Scanner(System.in);
-		int i;
+		Exceptions exceptions = new Exceptions();
 		Functionality func = new Functionality();
+		int i;
 		do {
 			
 			System.out.println("Digite [0] se deseja parar o programa:");
@@ -25,8 +26,8 @@ public class Main {
 			System.out.println("Digite [10] para criar uma nova agenda de pagamento:");
 			System.out.println("Digite [11] se deseja listar os empregados:");
 
-			i = sc.nextInt();
-			
+			i = exceptions.integerInput();
+
 			if (i == 1) {
 				System.out.println("Registrando um funcionario:");
 				 func.addEmployee();
@@ -35,7 +36,7 @@ public class Main {
 				System.out.println("Removendo um funcionario:");
 				func.removeEmployee();
 			} else if (i == 3) {
-				 System.out.println("Inputing timecard info.");
+				 System.out.println("Insira o cartao de Ponto do funcionario:");
                  func.timeCard();
 			} else if (i == 4) {
 				System.out.println("Adicionar resultados de venda:");
@@ -47,11 +48,22 @@ public class Main {
 				System.out.println("Editar um funcionario");
 				func.editEmployee();
 			} else if (i == 7) {
-				
+				System.out.println("Rodar Folha de pagamento:");
+				func.payroll();
+				System.out.println("Encerrado um dia de atividades do sistema:\n");
+                int monthBeforeUpdate = func.calendar.month;
+                func.calendar.dateUpgrade();
+                if(monthBeforeUpdate != func.calendar.month){
+                    func.resetServiceTax();
+                }
 			} else if (i == 8) {
 				
 			} else if (i == 9) {
+				System.out.println("Modificar a agenda do funcionario Default.\n");
+                func.newAgendaDefault();
 			} else if (i == 10) {
+				System.out.println("Modificar a agenda do funcionario.\n");
+				func.newAgenda();
 			}else if (i == 11) {
 				System.out.println("Lista de Empregados:");
                 func.showList();
@@ -60,5 +72,4 @@ public class Main {
 
 		sc.close();
 	}
-
 }

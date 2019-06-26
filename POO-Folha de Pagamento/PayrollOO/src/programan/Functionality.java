@@ -2,53 +2,60 @@ package programan;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.List;
 
 public class Functionality {
-	
+	Exceptions exceptions = new Exceptions();
 	public Date calendar;
 	private int cont;
 	public static ArrayList<Employee> employee = new ArrayList<Employee>();
+	 private UndoRedo undoRedo;
 	Scanner sc = new Scanner(System.in);
 	
 	public Functionality() {
-		cont = 0;
+		calendar = new Date();
+		cont = 1;
         employee = new ArrayList<Employee>();
+        undoRedo = new UndoRedo();
 	}
+	
 	 public void addEmployee(){
-	        System.out.println("Digite o tipo de funcionario:");
-	        System.out.println("1-Horista 2-Assalariado 3-Comissionado");
-	        int type = sc.nextInt();
-	        while(type < 1 || type > 3){
-	            System.out.println("Digite um numero valido");
-	            System.out.println("1-Horista 2-Assalariado 3-Comissionado");
-	            type = sc.nextInt();
-	        }
-	        if(type == 1) {
-	        	addHourly();
-	        }else if(type == 2) {
-	        	addSalaried();
-	        }else if(type == 3) {
-	        	addCommissioned();
-	        }
-	        cont++;
+		 emptyRedo();
+		 copy();   
+		 System.out.println("Digite o tipo de funcionario:");
+		 System.out.println("1-Horista 2-Assalariado 3-Comissionado");
+		 int type = exceptions.integerInput();
+		 while(type < 1 || type > 3){
+			 System.out.println("Digite um numero valido");
+			 System.out.println("1-Horista 2-Assalariado 3-Comissionado");
+			 type = sc.nextInt();
+		 }
+		 if(type == 1) {
+			 addHourly();
+		 }else if(type == 2) {
+			 addSalaried();
+		 }else if(type == 3) {
+			 addCommissioned();
+		 }
+		 cont++;
 	    }
 
 	    public void addHourly(){
-	        int id = cont;
+	        String id = Integer.toString(cont);
 	        Employee employeeHourly = new Hourly();
 	        employeeHourly.setId(id);
 	        employee.add(employeeHourly);
 	    }
 
 	    public void addSalaried(){
-	        int id = cont;
+	    	String id = Integer.toString(cont);
 	        Employee employeeWageEarner = new WageEarner();
 	        employeeWageEarner.setId(id);
 	        employee.add(employeeWageEarner);
 	    }
 
 	    public void addCommissioned(){
-	        int id = cont;
+	    	String id = Integer.toString(cont);
 	        Employee employeeComissioned = new Comissioned();
 	        employeeComissioned.setId(id);
 	        employee.add(employeeComissioned);
@@ -57,10 +64,10 @@ public class Functionality {
 	    public void removeEmployee(){
 	        boolean found = false;
 	    	System.out.println("Digite o id:");
-	        int id = sc.nextInt();
+	        String id = sc.nextLine();
 	       
 	        for(Employee current : employee){
-	            if(id == current.getId()){
+	            if(id.equals(current.getId())){
 	                found = true;
 	                employee.remove(current);
 	                System.out.println("Empregado Removido com sucesso.\n");
@@ -76,25 +83,21 @@ public class Functionality {
 	    
 	    public void timeCard() {
 	        System.out.println("Digite o Id do funcionario que queira adicionar o cartao de ponto:");
-	        int id = sc.nextInt();
-	        Employee auxiliar = findEmployee(id);
-	        if(auxiliar == null){
+	        String id = sc.nextLine();
+	        Employee check = findEmployee(id);
+	        
+	        if(check == null){
 	            System.out.println("Nao a funcionario com esse id.");
 	            return;
 	        }
 	        int weekDay = this.calendar.weekday;
 
-	        if(weekDay == 1){
-	            System.out.println("Nao pode trbalhar aos domingos");
-	            return;
-	        }
-
-	        if(!(auxiliar instanceof Hourly)){
+	        if(!(check instanceof Hourly)){
 	            System.out.println("Esse funcionario nao e Horista.");
 	            return;
 	        }
 
-	        ((Hourly)auxiliar).timeCard(weekDay);
+	        ((Hourly)check).timeCard(weekDay);
 	    }
 	    
 	    public void showList() {
@@ -122,7 +125,7 @@ public class Functionality {
 	                    System.out.println("Pagamento em maos.");
 	                }
 	                 if(current.getPayment() == 3) {
-	                	 System.out.println("Pamento via deposito bancario.");
+	                	 System.out.println("Pagamento via deposito bancario.");
 	                 }
 	            
 	            if(current.isSyndicate()){
@@ -136,9 +139,9 @@ public class Functionality {
 	        }
 	    }
 	    
-	    public Employee findEmployee(int id){
+	    public Employee findEmployee(String id){
 	        for(Employee current : employee){
-	            if(id == current.getId()){
+	            if(id.equals(current.getId())){
 	                return current;
 	            }
 	        }
@@ -146,7 +149,7 @@ public class Functionality {
 	    }
 	    public void saleResult() {
 	        System.out.println("Digite o Id do funcionario:");
-	        int id = sc.nextInt();
+	        String id = sc.nextLine();
 	        Employee check = findEmployee(id);
 
 	        if(check == null){
@@ -163,7 +166,7 @@ public class Functionality {
 	    
 	    public void serviceTax() {
 	        System.out.println("Digite o ID do funcionario:");
-	        int id = sc.nextInt();
+	        String id = sc.nextLine();
 	        Employee check = findEmployee(id);
 
 	        if(check == null){
@@ -172,10 +175,10 @@ public class Functionality {
 	        }
 
 	        System.out.println("Digite a taxa de servico:");
-	        double tax = sc.nextDouble();
+	        double tax = exceptions.doubleInput();
 	        while(tax < 0){
 	            System.out.println("Digite um valor correto para a taxa de servico");
-	            tax = sc.nextDouble();
+	            tax = exceptions.doubleInput();
 	        }
 
 	        check.setServiceTax(tax);
@@ -190,7 +193,7 @@ public class Functionality {
 	    
 		public void editEmployee(){
 	        System.out.println("Digite o Id do funcionaro que queira alterar:");
-	        int id = sc.nextInt();
+	        String id = sc.nextLine();
 	        Employee check = findEmployee(id);
 	        if(check == null){
 	            System.out.println("Funcionario nao encontrado");
@@ -202,13 +205,14 @@ public class Functionality {
 	        System.out.println("2 -> Endereco.");
 	        System.out.println("3 -> Id.");
 	        System.out.println("4 -> Salario.");
-	        System.out.println("5 -> Taxa de Comissao.");
+	        System.out.println("5 -> Taxa da Comissao.");
 	        System.out.println("6 -> Sindicato.");
 	        System.out.println("7 -> Id do Sindicato.");
 	        System.out.println("8 -> Tipo de trabalho.");
 	        System.out.println("9 -> Metodo de pagamento.");
+	        System.out.println("10-> Taxa do sindicato.");
 
-	        int opc = sc.nextInt();
+	        int opc = exceptions.integerInput();
 	        while(opc < 1 || opc > 10){
 	            System.out.println("Digite uma opcao entre 1-10");
 	            opc = sc.nextInt();
@@ -226,27 +230,27 @@ public class Functionality {
 	        }else if(opc == 2) {
 	        	System.out.println("Digite o novo endereco do funcionario");
 	            String newAddress = sc.nextLine();
-	            while(newAdress.equals("")){
+	            while(newAddress.equals("")){
 	            	System.out.println("Digite um endereco valido.");
-	                newAdress = sc.nextLine();
+	                newAddress = sc.nextLine();
 	            }
 	            check.setAddress(newAddress);
 	            System.out.println("");
 	        }else if(opc ==3) {
 	        	System.out.println("Digite o novo id do funcionario:");
-	            int newId = sc.nextInt();
-	            while(newId < 0){
+	            String newId = sc.nextLine();
+	            while(newId.contains("equals")){
 	            	System.out.println("Digite um numero valido.");
-	                newId = sc.nextInt();
+	                newId = sc.nextLine();
 	            }
 	            check.setId(newId);
 	            System.out.println("");
 	        }else if(opc == 4) {
 	        	System.out.println("Digite o novo salario do Funcionario");
-	            double newSalary = sc.nextDouble();
+	            double newSalary = exceptions.doubleInput();
 	            while(newSalary < 0){
 	            System.out.println("Digite um salario valido");
-	            	newSalary = sc.nextDouble();
+	            	newSalary = exceptions.doubleInput();
 	            }
 	            check.setSalary(newSalary);
 	            
@@ -257,10 +261,10 @@ public class Functionality {
 	        }else if(opc == 5) {
 	                if(check instanceof Comissioned){
 	                	System.out.println("Digite a taxa da atualizada da comissao: entre 0 e 1");
-	                    double newCommission = sc.nextDouble();
+	                    double newCommission = exceptions.doubleInput();
 	                    while(newCommission < 0 || newCommission > 1){
 	                        System.out.println("Digite um valor validio:");
-	                        newCommission = sc.nextDouble();
+	                        newCommission = exceptions.doubleInput();
 	                    }
 	                    ((Comissioned)check).setCommission(newCommission);
 	                }
@@ -274,10 +278,10 @@ public class Functionality {
 	                System.out.println("");
 	                if(!check2 && check.isSyndicate()){
 	                    System.out.println("Digite o novo id do funcionario no Sindicato:");
-	                    int newIdSyndicate = sc.nextInt();
+	                    int newIdSyndicate = exceptions.integerInput();
 	                    while(newIdSyndicate < 0){
 	                        System.out.println("Digite um valor valido");
-	                        newIdSyndicate = sc.nextInt();
+	                        newIdSyndicate = exceptions.integerInput();
 	                    }
 	                    check.setIdSyndicate(newIdSyndicate);
 	                    System.out.println(""); 
@@ -285,10 +289,10 @@ public class Functionality {
 	            }else if (opc ==7) {
 	                if(check.isSyndicate()){
 	                    System.out.println("Digite o novo id do funcionario no Sindicato:");
-	                    int newIdSyndicate = sc.nextInt();
+	                    int newIdSyndicate = exceptions.integerInput();
 	                    while(newIdSyndicate < 0){
 	                        System.out.println("Digite um numero valido:");
-	                        newIdSyndicate = sc.nextInt();
+	                        newIdSyndicate = exceptions.integerInput();
 	                    }
 	                    check.setIdSyndicate(newIdSyndicate);
 	                    System.out.println("");
@@ -301,17 +305,30 @@ public class Functionality {
 	                System.out.println("Digite o novo metodo:");
 	                check.setPayment();
 	                System.out.println("");
+	            }else if(opc == 10) {
+	            	if(check.isSyndicate()){
+	                    System.out.println("Digite a nova taxa do sindicato: (valor entre  0 e 1)");
+	                    double newFee = exceptions.doubleInput();
+	                    while(newFee < 0 || newFee > 1){
+	                        System.out.println("Please type a valid number.");
+	                        newFee = exceptions.doubleInput();
+	                    }
+	                    System.out.println("");
+	                }
+	                else{
+	                    System.out.println("Funcionario nao pertence ao sindicato");
+	                }
 	            }
 		}
 	   	
 		public void Newtype(Employee Id){
 			System.out.println("Digite o novo tipo que o funcinario ira pertencer.");
-			System.out.println("1-Hourly 2-Salaried 3-Commissioned");
-			int type = sc.nextInt();
+			System.out.println("1-Hourista 2-Assalariado 3-Comissionado");
+			int type = exceptions.integerInput();
 			
 			while(type < 1 || type > 3){
 				System.out.println("Digite uma opcao entre 1 e 3");
-				type = sc.nextInt();
+				type = exceptions.integerInput();
 			}
 		        if(type == 1) {
 		        	NewHourly(Id);
@@ -337,26 +354,350 @@ public class Functionality {
 				System.out.println("O funcionario ja e desse tipo");
 			}else{
 				WageEarner newWageEarner = new WageEarner(Id);
-				id.remove(original);
-				id.add(switched);
+				employee.remove(Id);
+				employee.add(newWageEarner);
 		    }
 		}
+		public void NewCommissioned(Employee id){
+			if(id instanceof Comissioned){
+				System.out.println("Esse funcionario ja pertence a esse tipo.");
+			}else{
+				Comissioned newComissioned = new Comissioned(id);
+				System.out.println("Digite a porcentagem da comissao do funcionario:");
+				double newCommission = exceptions.doubleInput();
+					
+				while(newCommission < 0 || newCommission >1){
+					System.out.println("Digite um numero entre 0 e 1.");
+					newCommission = exceptions.doubleInput();
+				}
+				newComissioned.setCommission(newCommission);
+				employee.remove(id);
+				employee.add(newComissioned);
+			}
+		}
+		
+		public void payroll() {	    
+			for(Employee current : employee){
+	            if(current.agenda.isWeekly()){
+	                weekPayment(current);
+	            }else if(current.agenda.isEachTwoWeeks()){
+	                if(current.agenda.isWeekToBePaid()){
+	                    twoWeekPayment(current);
+	                }else{
+	                    current.agenda.setWeekToBePaid(true);
+	                }
+	            }else if(current.agenda.isMonthly()){
+	                monthPayment(current);
+	            }
+	        }
+	    }
 
-		    public void NewCommissioned(Employee id){
-		        if(original instanceof Commissioned){
-		            System.out.println("This employee is already a commissioned one.");
-		        }
-		        else{
-		            Commissioned switched = new Commissioned(original);
-		            System.out.println("Please type the employee's commission:");
-		            double newCommission = handler.doubleInput();
-		            while(newCommission < 0 || newCommission >1){
-		                System.out.println("Please type a valid number.");
-		                newCommission = handler.doubleInput();
-		            }
-		            switched.setCommission(newCommission);
-		            register.remove(original);
-		            register.add(switched);
-		        }
-		    }
+	    public void weekPayment(Employee current) {
+	        if(current.agenda.getWeekDay() == calendar.weekday) {
+	            double value;
+	            if (current instanceof Hourly) {
+	                value = current.getPay();
+	                value -= value*(current.getUnionFee() + current.getServiceTax());
+	                printPayment(current,value);
+	                current.setPay(0);
+	            }
+	            else if (current instanceof WageEarner) {
+	                value = current.getPay()/4;
+	                value -= value*(current.getUnionFee() + current.getServiceTax());
+	                printPayment(current,value);
+	            }
+	            else if (current instanceof Comissioned) {
+	                value = current.getPay()/4;
+	                value -= value*(current.getUnionFee() + current.getServiceTax());
+	                value += ((Comissioned) current).saleResult * ((Comissioned) current).getCommission();
+	                ((Comissioned) current).saleResult = 0;
+	                printPayment(current,value);
+	            }
+	        }
+	    }
+
+	    public void twoWeekPayment(Employee current) {
+	        if(current.agenda.getWeekDay() == calendar.weekday) {
+	            double value;
+	            if (current instanceof Hourly) {
+	                value = current.getPay();
+	                value -= value*(current.getUnionFee() + current.getServiceTax());
+	                printPayment(current,value);
+	                current.setPay(0);
+	            }
+	            else if (current instanceof WageEarner) {
+	                value = current.getPay()/2;
+	                value -= value*(current.getUnionFee() + current.getServiceTax());
+	                printPayment(current,value);
+	            }
+	            else if (current instanceof Comissioned) {
+	                value = current.getPay()/2;
+	                value -= value*(current.getUnionFee() + current.getServiceTax());
+	                value += ((Comissioned) current).saleResult * ((Comissioned) current).getCommission();
+	                ((Comissioned) current).saleResult = 0;
+	                printPayment(current,value);
+	            }
+	        }
+	    }
+
+	    public void monthPayment(Employee current) {
+	        boolean NowPay = PayNow(current);
+	        if(NowPay) {
+	            double value;
+	            if (current instanceof Hourly) {
+	                value = current.getPay();
+	                value -= value*(current.getUnionFee() + current.getServiceTax());
+	                printPayment(current,value);
+	                current.setPay(0);
+	            }
+	            else if (current instanceof WageEarner) {
+	                value = current.getPay();
+	                value -= value*(current.getUnionFee() + current.getServiceTax());
+	                printPayment(current,value);
+	            }
+	            else if (current instanceof Comissioned) {
+	                value = current.getPay();
+	                value -= value*(current.getUnionFee() + current.getServiceTax());
+	                value += ((Comissioned) current).saleResult * ((Comissioned) current).getCommission();
+	                ((Comissioned) current).saleResult = 0;
+	                printPayment(current,value);
+	            }
+	        }
+	    }
+	    
+	    public boolean PayNow(Employee current) {
+	        if(current.agenda.isLastDay() && calendar.day == (calendar.daysPerMonth[calendar.month] - 1) && calendar.weekday == 7){
+	            return true;
+	        }else if(current.agenda.isLastDay() && (calendar.day == calendar.daysPerMonth[calendar.month])){
+	            return true;
+	        }else if(calendar.day == (current.agenda.getMonthDay() - 1) && calendar.day == 7){
+	            return true;
+	        }else if(calendar.day == current.agenda.getMonthDay()){
+	            return true;
+	        }
+	        return false;
+	    }
+	    
+	    public void printPayment(Employee current, double value) {
+	        int opc = current.getPayment();
+	        if(opc == 1) {
+	        	System.out.println(current.getName() + " Receber: " + value + " - Cheque pelos correios.");
+	        }else if(opc == 2) {
+	        	System.out.println(current.getName() + " Receber: " + value + " - Cheque em maos.");
+	        }else if(opc == 3) {
+	        	System.out.println(current.getName() + " Receber: " + value + " - Deposito bancario.");
+	        }
+	    }   
+	    
+	    public void newAgendaDefault() {
+	        System.out.println("Digite o Id do empregado que queira modificar:");
+	        String id = sc.nextLine();
+	        Employee check = findEmployee(id);
+
+	        if(check == null){
+	            System.out.println("Empregado nao encontrado.");
+	            return;
+	        }
+	        
+	        System.out.println("Digite a nova agenda do funcionario:");
+	        System.out.println("1-> Semanal  2-> Bissemanal 3-> Mensal");
+	        int opc = sc.nextInt();
+	        while(opc < 1 || opc > 3) {
+	        	System.out.println("Digite um valor valido entre 1 e 3");
+	        	opc = exceptions.integerInput();
+	        }
+	        if(opc == 1){
+	            newWeeklyDefault(check);
+	        }else if(opc == 2){
+	            newEachTwoWeeksDefault(check);
+	        }else if(opc == 3){
+	            newMonthlyDefault(check);
+	        }
+	    }
+	    
+	    public void newWeeklyDefault(Employee current) {
+	    	current.agenda.setLastDay(false);
+	    	current.agenda.setMonthly(false);
+	    	current.agenda.setEachTwoWeeks(false);
+	    	current.agenda.setWeekly(true);
+	    	current.agenda.setWeekDay(6);
+	    }
+
+	    public void newEachTwoWeeksDefault(Employee current) {
+	    	current.agenda.setLastDay(false);
+	    	current.agenda.setMonthly(false);
+	    	current.agenda.setEachTwoWeeks(true);
+	    	current.agenda.setWeekly(false);
+	    	current.agenda.setWeekDay(6);
+	    	current.agenda.setWeekToBePaid(false);
+	    }
+
+	    public void newMonthlyDefault(Employee current){
+            current.agenda.setLastDay(true);
+            current.agenda.setMonthly(true);
+            current.agenda.setEachTwoWeeks(false);
+            current.agenda.setWeekly(false);
+	    }
+	    
+	    public void newAgenda() {
+	        System.out.println("Digite o Id do empregado que queira modificar:");
+	        String id = sc.nextLine();
+	        Employee check = findEmployee(id);
+
+	        if(check == null){
+	            System.out.println("Empregado nao encontrado.");
+	            return;
+	        }
+	        
+	        System.out.println("Digite a nova agenda do funcionario:");
+	        System.out.println("1-> Semanal  2-> Bissemanal 3-> Mensal");
+	        int opc = exceptions.integerInput();
+	        
+	        while(opc < 1 || opc > 3) {
+	        	System.out.println("Digite um valor valido entre 1 e 3");
+	        	opc = exceptions.integerInput();
+	        }
+	        if(opc == 1){
+	            newWeekly(check);
+	        }else if(opc == 2){
+	            newEachTwoWeeks(check);
+	        }else if(opc == 3){
+	            newMonthly(check);
+	        }
+	    }
+
+	    public void newWeekly(Employee current) {
+	    	
+	    	System.out.println("Escolha qual dia da semana queira receber:");
+	    	System.out.println("2-> Segunda, 3-> Terca, 4-> Quarta, 5-> Quinta, 6-> Sexta");
+	    	int day = exceptions.integerInput();
+	    	
+	    	while(day < 2 || day > 6) {
+	    		System.out.println("Selecione um dia da semana valido.");
+	    		day = exceptions.integerInput();
+	    	}
+	    	current.agenda.setLastDay(false);
+	    	current.agenda.setMonthly(false);
+	    	current.agenda.setEachTwoWeeks(false);
+	    	current.agenda.setWeekly(true);
+	    	current.agenda.setWeekDay(day);
+	    }
+
+	    public void newEachTwoWeeks(Employee current) {
+	        
+	    	System.out.println("Escolha qual dia da semana queira receber:");
+	    	System.out.println("2-> Segunda, 3-> Terca, 4-> Quarta, 5-> Quinta, 6-> Sexta");
+	    	int day = exceptions.integerInput();
+	    	
+	    	while(day < 2 || day > 6) {
+	    		System.out.println("Selecione um dia da semana valido.");
+	    		day = exceptions.integerInput();
+	    	}
+	    	current.agenda.setLastDay(false);
+	    	current.agenda.setMonthly(false);
+	    	current.agenda.setEachTwoWeeks(true);
+	    	current.agenda.setWeekly(false);
+	    	current.agenda.setWeekDay(day);
+	    	current.agenda.setWeekToBePaid(false);
+	    }
+
+	    public void newMonthly(Employee current){
+	        System.out.println("Escolhar qual dia do mes voce que receber:");    
+	    	int day = exceptions.integerInput();
+	    	
+	    	while(day < 1 || day > 28) {
+	    		System.out.println("Selecione um dia do mes valido.");
+	    		day = exceptions.integerInput();
+	    	}
+	    	current.agenda.setMonthDay(day);
+	    	current.agenda.setLastDay(false);
+	    	current.agenda.setMonthly(true);
+	    	current.agenda.setEachTwoWeeks(false);
+	    	current.agenda.setWeekly(false);
+	    }
+	    
+	    public void undo(){
+	        if(undoRedo.undoStack.empty() || undoRedo.counterUndo.empty()){
+	            return;
+	        }
+	        undoRedo.redoStack.push(employee);
+	        undoRedo.counterRedo.push(cont);
+	        employee = undoRedo.undoStack.pop();
+	        cont = undoRedo.counterUndo.pop();
+	    }
+
+	    public void redo(){
+	        if(undoRedo.redoStack.empty() || undoRedo.annualCounterRedo.empty() || undoRedo.counterRedo.empty()){
+	            return;
+	        }
+	        copyRegister();
+	        employee = undoRedo.redoStack.pop();
+	        cont = undoRedo.counterRedo.pop();
+	    }
+
+	    public void emptyRedo(){
+	        List<Employee> auxiliar = new ArrayList<Employee>();
+	        int trash;
+	        while(!undoRedo.redoStack.empty()){
+	            auxiliar = undoRedo.redoStack.pop();
+	        }
+	        while(!undoRedo.annualCounterRedo.empty()){
+	            trash = undoRedo.annualCounterRedo.pop();
+	        }
+	        while(!undoRedo.counterRedo.empty()){
+	            trash = undoRedo.counterRedo.pop();
+	        }
+	    }
+
+	    public void copy(){
+	        List<Employee> copy = new ArrayList<Employee>();
+
+	        for(Employee current : employee){
+	            if(current instanceof  Hourly){
+	                Employee auxiliar = new Hourly(current);
+	                ((Hourly)auxiliar).timecard.setArrivalHour(((Hourly)current).timecard.getArrivalHour());
+	                ((Hourly)auxiliar).timecard.setArrivalMinute(((Hourly)current).timecard.getArrivalMinute());
+	                ((Hourly)auxiliar).timecard.setExitHour(((Hourly)current).timecard.getExitHour());
+	                ((Hourly)auxiliar).timecard.setExitMinute(((Hourly)current).timecard.getExitMinute());
+	                auxiliar.agenda.setWeekly(current.agenda.isWeekly());
+	                auxiliar.agenda.setEachTwoWeeks(current.agenda.isEachTwoWeeks());
+	                auxiliar.agenda.setMonthly(current.agenda.isMonthly());
+	                auxiliar.agenda.setLastDay(current.agenda.isLastDay());
+	                auxiliar.agenda.setWeekToBePaid(current.agenda.isWeekToBePaid());
+	                auxiliar.agenda.setWeekDay(current.agenda.getWeekDay());
+	                auxiliar.agenda.setMonthDay(current.agenda.getMonthDay());
+
+	                copy.add(auxiliar);
+	            }
+	            else if(current instanceof  WageEarner){
+	                Employee auxiliar = new WageEarner(current);
+	                auxiliar.agenda.setWeekly(current.agenda.isWeekly());
+	                auxiliar.agenda.setEachTwoWeeks(current.agenda.isEachTwoWeeks());
+	                auxiliar.agenda.setMonthly(current.agenda.isMonthly());
+	                auxiliar.agenda.setLastDay(current.agenda.isLastDay());
+	                auxiliar.agenda.setWeekToBePaid(current.agenda.isWeekToBePaid());
+	                auxiliar.agenda.setWeekDay(current.agenda.getWeekDay());
+	                auxiliar.agenda.setMonthDay(current.agenda.getMonthDay());
+
+	                copy.add(auxiliar);
+	            }
+	            else if(current instanceof Comissioned){
+	                Employee auxiliar = new Comissioned(current);
+	                ((Comissioned)auxiliar).setCommission(((Comissioned)current).getCommission());
+	                ((Comissioned) auxiliar).saleResult = ((Comissioned) current).saleResult;
+	                auxiliar.agenda.setWeekly(current.agenda.isWeekly());
+	                auxiliar.agenda.setEachTwoWeeks(current.agenda.isEachTwoWeeks());
+	                auxiliar.agenda.setMonthly(current.agenda.isMonthly());
+	                auxiliar.agenda.setLastDay(current.agenda.isLastDay());
+	                auxiliar.agenda.setWeekToBePaid(current.agenda.isWeekToBePaid());
+	                auxiliar.agenda.setWeekDay(current.agenda.getWeekDay());
+	                auxiliar.agenda.setMonthDay(current.agenda.getMonthDay());
+
+	                copy.add(auxiliar);
+	            }
+	        }
+	        undoRedo.undoStack.push(copy);
+	        undoRedo.counterUndo.push(cont);
+	    }
+
 }

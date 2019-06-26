@@ -4,17 +4,22 @@ import java.util.Scanner;
 
 public class Employee{
 	
+	Exceptions exceptions = new Exceptions();
 	private String name;
+	private boolean payDay;
 	private String address;
 	private String type;
 	private boolean syndicate;
 	private double unionFee;
 	private int payment;
-	private int id;
+	private String id;
 	private int idSyndicate;
 	private double serviceTax;
 	private double salary;
 	protected double pay;
+
+	public Agenda agenda = new Agenda();
+	
 	Scanner sc = new Scanner(System.in);
 	
 	public double getSalary() {
@@ -32,20 +37,23 @@ public class Employee{
 	public boolean isSyndicate() {
 		return syndicate;
 	}
-
+	
+	public void setSyndicate(boolean syndicate) {
+		this.syndicate = syndicate;
+	}
+	
 	public void setSyndicate() {
 	      
 	      System.out.println("Digite 1->Sim 0->Nao");
-	        int auxiliar = sc.nextInt();
-	        while(auxiliar < 0 || 1 < auxiliar){
+	        int check = exceptions.integerInput();
+	        while(check < 0 || 1 < check){
 	            System.out.println("Comando invalido. Por favor digite novamente:");
-	            auxiliar = sc.nextInt();
+	            check = exceptions.integerInput();
 	        }
 
-	        if(auxiliar == 1){
+	        if(check == 1){
 	            this.syndicate = true;
-	        }
-	        else{
+	        }else{
 	            this.syndicate = false;
 	        }
 	}
@@ -58,11 +66,11 @@ public class Employee{
 		this.unionFee = unionFee;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -108,11 +116,11 @@ public class Employee{
 		System.out.println("Selecione uma das opcoes abaixo:");
         System.out.println("1->Cheque pelos correios 2->Cheque em Maos 3->Deposito em conta bancaria");
 
-        int auxiliar = sc.nextInt();
+        int auxiliar = exceptions.integerInput();
 
         while(auxiliar < 1 || 3 < auxiliar){
             System.out.println("Digite uma opcao valida.");
-            auxiliar = sc.nextInt();
+            auxiliar = exceptions.integerInput();
         }
         this.payment = auxiliar;
 	}
@@ -131,5 +139,13 @@ public class Employee{
 
 	public void setServiceTax(double serviceTax) {
 		this.serviceTax = serviceTax;
+	}
+
+	public boolean isPayDay() {
+		return payDay;
+	}
+
+	public void setPayDay(boolean payDay) {
+		this.payDay = payDay;
 	}
 }

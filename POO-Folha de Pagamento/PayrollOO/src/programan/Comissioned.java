@@ -1,15 +1,16 @@
 package programan;
 
-import java.util.Scanner;
-
 public class Comissioned extends Employee {
-    private double commission;
-    public double saleResults;
-    Scanner sc = new Scanner(System.in);
-	
+    
+	private double commission;
+    public double saleResult;
     public Comissioned() {
     	
-    	this.saleResults = 0;   
+    	CommissionedAgenda();
+    	setPay(0);
+    	setPayDay(true);
+    	this.saleResult = 0.0;  
+    	
 		System.out.println("Digite o nome do empregado:");
 	        String name = sc.nextLine();
 	        while(name.equals("")){
@@ -28,32 +29,32 @@ public class Comissioned extends Employee {
 	        setAddress(address);
 
 	        System.out.println("Digite o salario do empregado:");
-	        double salary = sc.nextDouble();
+	        double salary = exceptions.doubleInput();
 	        while(salary < 0){
 	            System.out.println("Digite um salario valido.");
-	            salary = sc.nextDouble();
+	            salary = exceptions.doubleInput();
 	        }
 	        setSalary(salary);
 	        System.out.println("");
+	        setPay(salary);
 	        System.out.println("O empregado pertence o sindicato:");
 	        setSyndicate();
 	        System.out.println("");
 
 	        if(isSyndicate()){
-	            System.out.println("Digite o numero de registro do funcionario no sindicato:");
-	            int idSyndicate = sc.nextInt();
-	            while(idSyndicate < 0){
-	                System.out.println("Digite um numero valido.");
-	                idSyndicate = sc.nextInt();
-	            }
+	        	System.out.println("Digite o ID do funcionario no sindicato:");
+	        	int idSyndicate = exceptions.integerInput();
+				
+				while(idSyndicate < 0){
+					System.out.println("Digite um valor valido.");
+					idSyndicate = exceptions.integerInput();
+				}
 	            setIdSyndicate(idSyndicate);
-	            System.out.println("");
-
 	            System.out.println("Digite a taxa do sindicato:");
-	            double fee = sc.nextDouble();
+	            double fee = exceptions.doubleInput();
 	            while(fee < 0 || fee >1){
 	                System.out.println("Digite uma taxa valida.");
-	                fee = sc.nextDouble();
+	                fee = exceptions.doubleInput();
 	            }
 	            setUnionFee(fee);
 	            System.out.println("");
@@ -63,15 +64,30 @@ public class Comissioned extends Employee {
 	        setPayment();
 	        System.out.println("");
 
-	        System.out.println("Digite a taxa da comissao");
-	        double commission = sc.nextDouble();
+	        System.out.println("Digite a taxa da comissao de venda:");
+	        double commission = exceptions.doubleInput();
 	        while(commission < 0 || commission > 1){
 	            System.out.println("Digite um valor valido para a comissao.");
-	            commission = sc.nextDouble();
+	            commission = exceptions.doubleInput();
 	        }
 	        setCommission(commission);
 	}
 
+    public Comissioned(Employee id) {
+    	CommissionedAgenda();
+        setName(id.getName());
+        setAddress(id.getAddress());
+        setSalary (id.getSalary());
+        this.pay = id.getSalary();
+        setId(id.getId());
+        setPayment(id.getPayment());
+    	if(isSyndicate()){
+			setIdSyndicate(id.getIdSyndicate());
+			setUnionFee (id.getUnionFee());
+			setServiceTax(id.getServiceTax());
+		}
+        this.saleResult = 0.0;
+    }
 	public double getCommission() {
 		return commission;
 	}
@@ -82,11 +98,16 @@ public class Comissioned extends Employee {
 	
     public void saleResult(){
         System.out.println("Digite o resultado de venda:");
-        double result = sc.nextDouble();
+        double result = exceptions.doubleInput();
         while(result < 0){
             System.out.println("Digite um numero valido.");
-            result = sc.nextDouble();
+            result = exceptions.doubleInput();
         }
-        this.saleResults += result;
+        this.saleResult += result;
+    }
+    
+    public void CommissionedAgenda(){
+        this.agenda.setEachTwoWeeks(true);
+        this.agenda.setWeekDay(6);
     }
 }
