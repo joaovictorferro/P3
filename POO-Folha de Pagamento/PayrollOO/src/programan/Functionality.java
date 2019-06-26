@@ -2,26 +2,23 @@ package programan;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.List;
 
 public class Functionality {
 	Exceptions exceptions = new Exceptions();
 	public Date calendar;
 	private int cont;
 	public static ArrayList<Employee> employee = new ArrayList<Employee>();
-	 private UndoRedo undoRedo;
+
 	Scanner sc = new Scanner(System.in);
 	
 	public Functionality() {
 		calendar = new Date();
 		cont = 1;
         employee = new ArrayList<Employee>();
-        undoRedo = new UndoRedo();
 	}
 	
 	 public void addEmployee(){
-		 emptyRedo();
-		 copy();   
+
 		 System.out.println("Digite o tipo de funcionario:");
 		 System.out.println("1-Horista 2-Assalariado 3-Comissionado");
 		 int type = exceptions.integerInput();
@@ -615,89 +612,4 @@ public class Functionality {
 	    	current.agenda.setEachTwoWeeks(false);
 	    	current.agenda.setWeekly(false);
 	    }
-	    
-	    public void undo(){
-	        if(undoRedo.undoStack.empty() || undoRedo.counterUndo.empty()){
-	            return;
-	        }
-	        undoRedo.redoStack.push(employee);
-	        undoRedo.counterRedo.push(cont);
-	        employee = undoRedo.undoStack.pop();
-	        cont = undoRedo.counterUndo.pop();
-	    }
-
-	    public void redo(){
-	        if(undoRedo.redoStack.empty() || undoRedo.annualCounterRedo.empty() || undoRedo.counterRedo.empty()){
-	            return;
-	        }
-	        copyRegister();
-	        employee = undoRedo.redoStack.pop();
-	        cont = undoRedo.counterRedo.pop();
-	    }
-
-	    public void emptyRedo(){
-	        List<Employee> auxiliar = new ArrayList<Employee>();
-	        int trash;
-	        while(!undoRedo.redoStack.empty()){
-	            auxiliar = undoRedo.redoStack.pop();
-	        }
-	        while(!undoRedo.annualCounterRedo.empty()){
-	            trash = undoRedo.annualCounterRedo.pop();
-	        }
-	        while(!undoRedo.counterRedo.empty()){
-	            trash = undoRedo.counterRedo.pop();
-	        }
-	    }
-
-	    public void copy(){
-	        List<Employee> copy = new ArrayList<Employee>();
-
-	        for(Employee current : employee){
-	            if(current instanceof  Hourly){
-	                Employee auxiliar = new Hourly(current);
-	                ((Hourly)auxiliar).timecard.setArrivalHour(((Hourly)current).timecard.getArrivalHour());
-	                ((Hourly)auxiliar).timecard.setArrivalMinute(((Hourly)current).timecard.getArrivalMinute());
-	                ((Hourly)auxiliar).timecard.setExitHour(((Hourly)current).timecard.getExitHour());
-	                ((Hourly)auxiliar).timecard.setExitMinute(((Hourly)current).timecard.getExitMinute());
-	                auxiliar.agenda.setWeekly(current.agenda.isWeekly());
-	                auxiliar.agenda.setEachTwoWeeks(current.agenda.isEachTwoWeeks());
-	                auxiliar.agenda.setMonthly(current.agenda.isMonthly());
-	                auxiliar.agenda.setLastDay(current.agenda.isLastDay());
-	                auxiliar.agenda.setWeekToBePaid(current.agenda.isWeekToBePaid());
-	                auxiliar.agenda.setWeekDay(current.agenda.getWeekDay());
-	                auxiliar.agenda.setMonthDay(current.agenda.getMonthDay());
-
-	                copy.add(auxiliar);
-	            }
-	            else if(current instanceof  WageEarner){
-	                Employee auxiliar = new WageEarner(current);
-	                auxiliar.agenda.setWeekly(current.agenda.isWeekly());
-	                auxiliar.agenda.setEachTwoWeeks(current.agenda.isEachTwoWeeks());
-	                auxiliar.agenda.setMonthly(current.agenda.isMonthly());
-	                auxiliar.agenda.setLastDay(current.agenda.isLastDay());
-	                auxiliar.agenda.setWeekToBePaid(current.agenda.isWeekToBePaid());
-	                auxiliar.agenda.setWeekDay(current.agenda.getWeekDay());
-	                auxiliar.agenda.setMonthDay(current.agenda.getMonthDay());
-
-	                copy.add(auxiliar);
-	            }
-	            else if(current instanceof Comissioned){
-	                Employee auxiliar = new Comissioned(current);
-	                ((Comissioned)auxiliar).setCommission(((Comissioned)current).getCommission());
-	                ((Comissioned) auxiliar).saleResult = ((Comissioned) current).saleResult;
-	                auxiliar.agenda.setWeekly(current.agenda.isWeekly());
-	                auxiliar.agenda.setEachTwoWeeks(current.agenda.isEachTwoWeeks());
-	                auxiliar.agenda.setMonthly(current.agenda.isMonthly());
-	                auxiliar.agenda.setLastDay(current.agenda.isLastDay());
-	                auxiliar.agenda.setWeekToBePaid(current.agenda.isWeekToBePaid());
-	                auxiliar.agenda.setWeekDay(current.agenda.getWeekDay());
-	                auxiliar.agenda.setMonthDay(current.agenda.getMonthDay());
-
-	                copy.add(auxiliar);
-	            }
-	        }
-	        undoRedo.undoStack.push(copy);
-	        undoRedo.counterUndo.push(cont);
-	    }
-
 }

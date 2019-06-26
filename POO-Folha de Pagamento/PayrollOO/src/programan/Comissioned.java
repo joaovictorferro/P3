@@ -1,6 +1,6 @@
 package programan;
 
-public class Comissioned extends Employee {
+public class Comissioned extends Employee implements ComissionedInterface{
     
 	private double commission;
     public double saleResult;

@@ -1,6 +1,6 @@
 package programan;
 
-public class Hourly extends Employee{
+public class Hourly extends Employee implements HourlyInterface{
 	
 	private double valueOfTimeWorked;
 	public TimeCard timecard = new TimeCard();

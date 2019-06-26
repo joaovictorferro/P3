@@ -1,6 +1,6 @@
 package programan;
 
-public class WageEarner extends Employee {
+public class WageEarner extends Employee implements  WageEarnerInterface{
 
 	public WageEarner() {
 		WageEarnerAgenda();
