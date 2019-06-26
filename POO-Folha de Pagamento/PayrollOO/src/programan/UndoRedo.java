@@ -13,7 +13,4 @@ public class UndoRedo {
 
     public Stack<Integer> counterUndo = new Stack<Integer>();
 
-    public Stack<Integer> annualCounterRedo = new Stack<Integer>();
-
-    public Stack<Integer> annualCounterUndo = new Stack<Integer>();
 }
