@@ -1,6 +1,5 @@
 package main;
 
-
 import java.util.Locale;
 import functionality.*;
 import utilitarios.Exceptions;
@@ -30,7 +29,6 @@ public class Main {
 			i = exceptions.integerInput();
 			
 			if (i>=1 && i < 8) {
-				func.emptyRedo();
 				func.copyRegister();
 			}
 			

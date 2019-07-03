@@ -76,7 +76,6 @@ public class WageEarner extends Employee{
 			setServiceTax(id.getServiceTax());
 		}
     }
-	
     public void WageEarnerAgenda(){
         this.agenda.setMonthly(true);
         this.agenda.setLastDay(true);

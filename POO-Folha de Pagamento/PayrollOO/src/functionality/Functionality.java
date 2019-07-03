@@ -644,17 +644,6 @@ public class Functionality {
 	        cont = undoRedo.counterRedo.pop();
 	    }
 	    
-	    public void emptyRedo(){
-	        List<Employee> auxiliar = new ArrayList<Employee>();
-	        int trash;
-	        while(!undoRedo.redoStack.empty()){
-	            auxiliar = undoRedo.redoStack.pop();
-	        }
-	        while(!undoRedo.counterRedo.empty()){
-	            trash = undoRedo.counterRedo.pop();
-	        }
-	    }
-	    
 	    public void copyRegister(){
 	        for(Employee current : employee){
 	            if(current instanceof  Hourly){
